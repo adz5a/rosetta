@@ -1,6 +1,6 @@
 # rosetta
 
-FIXME: Write a one-line description of your library/project.
+Implementation of some of the [rosetta](http://rosettacode.org/wiki/Rosetta_Code) examples
 
 ## Overview
 
