@@ -89,11 +89,17 @@
                               :color (repeat 3 (:value pixel))
                               :size [1 1]}))))
 
+(loop [pixels values]
+  (if (empty? pixels)
+    nil
+    (do
+      (printPixel (first pixels))
+      (recur (rest pixels)))))
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 
-  (for [value [1 2 3 4]](println "olo"))
+  
 
   )
