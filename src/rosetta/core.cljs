@@ -3,7 +3,6 @@
 
 (enable-console-print!)
 
-(println "This text is printed from src/rosetta/core.cljs. Go ahead and edit it and see reloading in action.")
 
 ;; define your app data so that it doesn't get over-written on reload
 
@@ -75,38 +74,26 @@
               (rest seq2)
               (conj res (xor v1 v2)))))))))
 
-(defonce ctxt
-  (.getContext 
-    (.getElementById js/document "canvas") 
-    "2d"))
+(def values (for [x (range 0 256)
+                  y (range 0 256)
+                  :let [pos [x y]]]
+              {:pos pos
+               :value (computeBinary (map binaryCast (xorSeq 
+                                                       (binarySeq x)
+                                                       (binarySeq y))))}))
 
-(defonce imageData
-  (.createImageData ctxt))
+(def printPixel
+  (fn [pixel]
+    (do
+      (.drawRect js/draw #js {:position (:pos pixel)
+                              :color (repeat 3 (:value pixel))
+                              :size [1 1]}))))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 
-
-  (println (binarySeq 7))
-  (println (binarySeq 8))
-  (println (computeBinary (binarySeq 8)))
-  (println (computeBinary (binarySeq 7)))
-
-  (println (map booleanCast (binarySeq 8)))
-
-  (println (computeBinary (map binaryCast (xorSeq 
-                                            (binarySeq 7)
-                                            (binarySeq 8)))))
-
-
-  (println (for [x (range 0 256)
-                 y (range 0 256)
-                 :let [pos [x y]]]
-             {:pos pos
-              :value (computeBinary (map binaryCast (xorSeq 
-                                                      (binarySeq x)
-                                                      (binarySeq y))))}))
+  (for [value [1 2 3 4]](println "olo"))
 
   )
